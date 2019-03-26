@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :validatable,
          :confirmable,
          :lockable
+
+  enum role: [:member, :admin]
 end
