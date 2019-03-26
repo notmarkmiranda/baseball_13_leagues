@@ -16,6 +16,7 @@ gem 'devise'
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry'
+  gem 'rb-readline'
   gem 'rspec-rails', '~> 3.8'
 end
 
