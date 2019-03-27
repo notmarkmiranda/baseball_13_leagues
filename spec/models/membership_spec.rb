@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe User, type: :model do
+describe Membership, type: :model do
   describe 'relationships' do
-    it { should have_many :leagues }
-    it { should have_many :memberships }
+    it { should belong_to :league }
+    it { should belong_to :user }
   end
 
   describe 'validations'
