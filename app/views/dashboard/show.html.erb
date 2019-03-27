@@ -1,0 +1,4 @@
+<h1>dashboard</h1>
+<% if current_user.admin? %>
+  <%= link_to 'Create League', new_league_path %>
+<% end %>
