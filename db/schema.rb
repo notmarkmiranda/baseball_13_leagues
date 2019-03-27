@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_224338) do
+ActiveRecord::Schema.define(version: 2019_03_27_133432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 2019_03_26_224338) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_leagues_on_user_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "league_id"
+    t.bigint "user_id"
+    t.integer "role", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["league_id"], name: "index_memberships_on_league_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -51,4 +61,6 @@ ActiveRecord::Schema.define(version: 2019_03_26_224338) do
   end
 
   add_foreign_key "leagues", "users"
+  add_foreign_key "memberships", "leagues"
+  add_foreign_key "memberships", "users"
 end

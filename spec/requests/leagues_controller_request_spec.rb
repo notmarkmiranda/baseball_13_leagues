@@ -48,6 +48,7 @@ describe LeaguesController, type: :request do
           expect {
             subject
           }.to change(League, :count).by(1)
+          .and change(Membership, :count).by(1)
           expect(response).to have_http_status(302)
         end
       end
