@@ -10,4 +10,8 @@ class User < ApplicationRecord
          :lockable
 
   enum role: [:member, :admin]
+
+  def is_admin_for_league?(league)
+    binding.pry
+  end
 end

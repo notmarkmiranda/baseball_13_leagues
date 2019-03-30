@@ -7,5 +7,7 @@
       <%= "Owned by: #{team.owner_email}" %>
     </div>
   <% end %>
-  <%= link_to 'Assign Team', new_league_ownership_path(@league, team_id: team.id) %>
+  <% if policy(@league).admin? %>
+    <%= link_to 'Assign Team', new_league_ownership_path(@league, team_id: team.id) %>
+  <% end %>
 <% end %>
