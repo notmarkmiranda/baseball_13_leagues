@@ -11,6 +11,7 @@ describe Ownership, type: :model do
     before { create(:ownership) }
 
     it { should validate_uniqueness_of(:user_id).scoped_to(:league_id) }
+    it { should validate_uniqueness_of(:team_id).scoped_to(:league_id) }
   end
   describe 'methods'
 end

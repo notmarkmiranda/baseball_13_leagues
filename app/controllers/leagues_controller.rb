@@ -3,6 +3,7 @@ class LeaguesController < ApplicationController
 
   def show
     @league = League.find(params[:id])
+    @owned_teams = Team.joins(:ownership).where("ownerships.league_id = ?", @league.id)
   end
 
   def new
