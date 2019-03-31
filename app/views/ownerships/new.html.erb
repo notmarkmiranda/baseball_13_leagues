@@ -1,0 +1,10 @@
+<%= form_for [@league, @league.ownerships.new] do |f| %>
+  <%= f.fields_for User.new do |ff| %>
+    <div>
+      <%= ff.label :email, 'User Email' %>
+      <%= ff.text_field :email %>
+    </div>
+  <% end %>
+  <%= f.hidden_field :team_id, value: params[:team_id] %>
+  <%= f.submit 'Assign!' %>
+<% end %>

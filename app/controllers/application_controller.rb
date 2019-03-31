@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   helper_method :require_admin
 
   private

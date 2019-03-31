@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_28_002408) do
+ActiveRecord::Schema.define(version: 2019_03_28_125242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 2019_03_28_002408) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "ownerships", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "league_id"
+    t.bigint "team_id"
+    t.boolean "active", default: true
+    t.boolean "paid", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["league_id"], name: "index_ownerships_on_league_id"
+    t.index ["team_id"], name: "index_ownerships_on_team_id"
+    t.index ["user_id"], name: "index_ownerships_on_user_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.string "mlb_id"
@@ -80,4 +93,7 @@ ActiveRecord::Schema.define(version: 2019_03_28_002408) do
   add_foreign_key "leagues", "users"
   add_foreign_key "memberships", "leagues"
   add_foreign_key "memberships", "users"
+  add_foreign_key "ownerships", "leagues"
+  add_foreign_key "ownerships", "teams"
+  add_foreign_key "ownerships", "users"
 end

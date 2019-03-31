@@ -1,6 +1,7 @@
 class League < ApplicationRecord
   belongs_to :user
   has_many :memberships
+  has_many :ownerships
 
   validates :name, presence: true, uniqueness: true
   validates :start_date, presence: true
