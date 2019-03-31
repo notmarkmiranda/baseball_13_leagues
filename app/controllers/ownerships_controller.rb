@@ -4,6 +4,7 @@ class OwnershipsController < ApplicationController
 
   def new
     @ownership = league.ownerships.new
+    authorize @ownership
   end
 
   def create
@@ -19,14 +20,6 @@ class OwnershipsController < ApplicationController
 
   def ownership_params
     params.require(:ownership).permit(:user_id, :league_id, :team_id, user: [:email])
-  end
-
-  def only_ownership_params
-    ownership_params.except("user")
-  end
-
-  def only_user_params
-    ownership_params["user"]
   end
 
   def load_league
