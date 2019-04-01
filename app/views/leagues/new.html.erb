@@ -1,7 +1,24 @@
-<%= form_for @league do |f| %>
-  <%= f.label :name, 'League Name' %>
-  <%= f.text_field :name %>
-  <%= f.label :start_date, 'Start Date' %>
-  <%= f.date_field :start_date %>
-  <%= f.submit 'Vamonos!' %>
-<% end %>
+<div class="row justify-content-md-center">
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-header form-title">
+        New League
+      </div>
+      <div class="card-body">
+        <%= form_for @league do |f| %>
+          <div class="field form-group">
+            <%= f.label :name, 'League Name', class: 'form-labels' %>
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+          <div class="field form-group">
+            <%= f.label :start_date, 'Start Date', class: 'form-labels' %>
+            <%= f.date_field :start_date, class: 'form-control' %>
+          </div>
+          <div class="action">
+            <%= f.submit 'Vamonos!', class: 'btn btn-outline-secondary btn-block' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

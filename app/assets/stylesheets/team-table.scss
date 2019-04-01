@@ -1,0 +1,26 @@
+table.league-table {
+  table-layout: fixed;
+}
+
+th.accomplishment {
+  width: 6%;
+}
+
+.team-name {
+  color: $DARK_SLATE_GRAY;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.ownership-text {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: $TIMBERWOLF;
+}
+
+.assign-team-link {
+  text-transform: uppercase;
+  font-size: 0.7em;
+  letter-spacing: 0.2em;
+  color: $USAFA_BLUE;
+}

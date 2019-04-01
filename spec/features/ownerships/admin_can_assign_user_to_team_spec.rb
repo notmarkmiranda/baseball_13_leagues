@@ -22,7 +22,7 @@ describe 'Admin user can assign a user to a team' do
 
         expect(current_path).to eq(league_path(league))
         expect(page).to have_content(team.name)
-        expect(page).to have_content("Owned by: #{user.email}")
+        expect(page).to have_content(user.email)
       end
 
       it 'does not assign the existing user if the team is taken' do
@@ -30,11 +30,8 @@ describe 'Admin user can assign a user to a team' do
 
         visit league_path(league)
 
-        click_link 'Assign Team'
-        fill_in 'User Email', with: user.email
-        click_button 'Assign!'
-
-        expect(current_path).to eq(league_ownerships_path(league))
+        expect(page).to have_content('Dashboard')
+        expect(page).not_to have_link('Assign Team')
       end
     end
 
@@ -50,7 +47,7 @@ describe 'Admin user can assign a user to a team' do
 
         expect(current_path).to eq(league_path(league))
         expect(page).to have_content(team.name)
-        expect(page).to have_content("Owned by: #{new_user_email}")
+        expect(page).to have_content(new_user_email)
       end
     end
 
@@ -64,7 +61,7 @@ describe 'Admin user can assign a user to a team' do
 
         expect(current_path).to eq(league_path(league))
         expect(page).to have_content(team.name)
-        expect(page).to have_content("Owned by: #{admin.email}")
+        expect(page).to have_content(admin.email)
       end
     end
   end
@@ -74,7 +71,7 @@ describe 'Admin user can assign a user to a team' do
 
     it 'does not show the user any links to try to assign teams' do
       visit league_path(league)
-      
+
       expect(page).to have_content(team.name)
       expect(page).not_to have_link('Assign Team')
     end
