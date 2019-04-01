@@ -1,10 +1,29 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="dashboard-header">
-      <h2>Dashboard</h2>
-      <% if current_user.admin? %>
-        <%= link_to 'Create League', new_league_path, class: 'btn btn-outline-secondary btn-sm' %>
-      <% end %>
+<div class="row justify-content-md-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <div class="dashboard-header">
+          <h2>Dashboard</h2>
+          <% if current_user.admin? %>
+          <%= link_to 'Create League', new_league_path, class: 'btn btn-outline-secondary' %>
+          <% end %>
+        </div>
+      </div>
+      <li class="list-group list-group-flush">
+        <% @leagues.each do |league| %>
+          <%= link_to league_path(league), class: 'list-group-item list-group-item-action' do %>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1 league-name"><%= league.name %></h5>
+              <small><%= pluralize(league.memberships_count, 'player') %></small>
+            </div>
+            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            <small>Start Date: <%= league.start_date %></small>
+            <% if league.end_date %>
+              <small>End Date: <%= league.end_date %></small>
+            <% end %>
+          <% end %>
+        <% end %>
+      </li>
     </div>
   </div>
 </div>
