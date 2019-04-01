@@ -3,7 +3,12 @@ class LeaguesController < ApplicationController
 
   def show
     @league = League.find(params[:id])
-    @owned_teams = Team.joins(:ownership).where("ownerships.league_id = ?", @league.id)
+    @owned_teams = Team
+      .joins(:ownership)
+      .where("ownerships.league_id = ?", @league.id)
+      .order(name: :asc)
+    @teams = @owned_teams + (Team.all - @owned_teams)
+    @range = [*0..13]
   end
 
   def new

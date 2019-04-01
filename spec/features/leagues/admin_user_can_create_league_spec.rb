@@ -27,7 +27,7 @@ describe 'Admin user can create a league', type: :feature do
     it 'should not show the use the link for create league' do
       visit dashboard_path
 
-      expect(page).to have_content('dashboard')
+      expect(page).to have_content('Dashboard')
       expect(page).not_to have_link('Create League')
     end
   end

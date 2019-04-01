@@ -1,13 +1,38 @@
-<%= @league.name %>
-<% Team.all.each do |team| %>
-  <%= team.name %>
+<h1><%= @league.name %></h1>
 
-  <% if @owned_teams.include?(team) %>
-    <div>
-      <%= "Owned by: #{team.owner_email}" %>
-    </div>
-  <% end %>
-  <% if policy(@league).admin? %>
-    <%= link_to 'Assign Team', new_league_ownership_path(@league, team_id: team.id) %>
-  <% end %>
-<% end %>
+<table class="table table-responsive-md table-striped league-table">
+  <thead>
+    <tr>
+      <th scope="col">Team</th>
+      <% @range.each do |n| %>
+        <th class="accomplishment"><%= n %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td>
+          <span class="team-name">
+            <%= team.name %>
+          </span>
+          <% if @owned_teams.include?(team) %>
+            <span class="ownership-text">
+              <%= team.owner_email %>
+            </span>
+          <% elsif policy(@league).admin? %>
+            <div>
+              <%= link_to 'Assign Team', new_league_ownership_path(@league, team_id: team.id), class: 'assign-team-link' %>
+            </div>
+          <% end %>
+        </td>
+        <% @range.each do |n| %>
+          <td>
+            <!--// this is where accomplishments will go //-->
+            &nbsp;
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

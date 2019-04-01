@@ -10,6 +10,19 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,700');
+@import "colors";
+@import "alerts";
+
+@import "navbar";
+@import "forms";
+@import "team-table";
+@import "dashboard";
+
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+}

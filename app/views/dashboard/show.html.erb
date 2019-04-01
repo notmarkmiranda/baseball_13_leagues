@@ -1,4 +1,10 @@
-<h1>dashboard</h1>
-<% if current_user.admin? %>
-  <%= link_to 'Create League', new_league_path %>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="dashboard-header">
+      <h2>Dashboard</h2>
+      <% if current_user.admin? %>
+        <%= link_to 'Create League', new_league_path, class: 'btn btn-outline-secondary btn-sm' %>
+      <% end %>
+    </div>
+  </div>
+</div>
