@@ -3,6 +3,8 @@ class League < ApplicationRecord
   has_many :memberships
   has_many :ownerships
 
+  delegate :count, to: :memberships, prefix: true
+
   validates :name, presence: true, uniqueness: true
   validates :start_date, presence: true
 

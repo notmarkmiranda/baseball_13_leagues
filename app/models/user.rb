@@ -10,4 +10,8 @@ class User < ApplicationRecord
          :lockable
 
   enum role: [:member, :admin]
+
+  def membered_or_admined_leagues
+    League.joins(:memberships).where("memberships.user_id = ?", id)
+  end
 end
