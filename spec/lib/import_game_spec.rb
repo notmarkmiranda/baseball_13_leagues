@@ -8,6 +8,10 @@ describe ImportGame do
   describe 'self#import!' do
     subject { described_class.import!(game_json, game_date)}
 
+    before do
+      CreateAllTeams.lets_go!
+    end
+
     it 'should create a game and 2 accomplishments' do
       expect {
         subject

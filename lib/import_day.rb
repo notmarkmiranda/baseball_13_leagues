@@ -8,7 +8,7 @@ class ImportDay
   def import!
     games.each do |game_json|
       game_status = game_json[:status][:status]
-      ImportGame.import!(game_json, game_date) if game_status == "Final"
+      ImportGame.import!(game_json, game_date) if game_status == 'Final'
     end
   end
 

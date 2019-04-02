@@ -8,7 +8,7 @@ describe ImportDay do
   before { allow(ImportGame).to receive(:import!) }
   it 'should call the CreateGame class for games that are finished' do
     subject
-    
+
     expect(ImportGame).to have_received(:import!).exactly(9).times
   end
 end
