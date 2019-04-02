@@ -4,7 +4,7 @@ class LeaguesController < ApplicationController
   def show
     @league = League.find(params[:id])
     @owned_teams = Team
-      .joins(:ownership)
+      .joins(:ownerships)
       .where("ownerships.league_id = ?", @league.id)
       .order(name: :asc)
     @teams = @owned_teams + (Team.all - @owned_teams)
