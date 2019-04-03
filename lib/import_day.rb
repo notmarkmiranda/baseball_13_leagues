@@ -6,10 +6,15 @@ class ImportDay
   end
 
   def import!
-    games.each do |game_json|
+    games&.each do |game_json|
       game_status = game_json[:status][:status]
-      ImportGame.import!(game_json, game_date) if game_status == 'Final'
+      game_type = game_json[:series]
+      ImportGame.import!(game_json, game_date) if game_status == 'Final' && game_type == "Regular Season"
     end
+  end
+
+  def self.lets_go!(json)
+    new(json).import!
   end
 
   private

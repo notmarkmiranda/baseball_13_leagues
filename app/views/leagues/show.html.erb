@@ -1,6 +1,6 @@
 <h1><%= @league.name %></h1>
 
-<table class="table table-responsive-md table-striped league-table">
+<table class="table table-responsive-md table-striped table-bordered league-table">
   <thead>
     <tr>
       <th scope="col">Team</th>
@@ -28,6 +28,10 @@
         </td>
         <% @range.each do |n| %>
           <td>
+            <% acc = @accomplishments.find_by(team_id: team.id, number: n) %>
+            <% if acc %>
+              <%= acc.date %>
+            <% end %>
             <!--// this is where accomplishments will go //-->
             &nbsp;
           </td>

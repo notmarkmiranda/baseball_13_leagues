@@ -12,13 +12,14 @@ class ImportGame
   end
 
   def create!
-    Game.create!(
-      home_team: home_team,
-      home_team_score: home_team_score,
-      away_team: away_team,
-      away_team_score: away_team_score,
-      mlb_game_id: mlb_game_id,
-    )
+    g = Game.find_or_initialize_by(mlb_game_id: mlb_game_id)
+    if g.new_record?
+      g.home_team = home_team
+      g.away_team = away_team
+      g.home_team_score = home_team_score
+      g.away_team_score = away_team_score
+    end
+    g.save!
   end
 
   private

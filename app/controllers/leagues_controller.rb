@@ -9,6 +9,7 @@ class LeaguesController < ApplicationController
       .order(name: :asc)
     @teams = @owned_teams + (Team.all - @owned_teams)
     @range = [*0..13]
+    @accomplishments = Accomplishment.all
   end
 
   def new
