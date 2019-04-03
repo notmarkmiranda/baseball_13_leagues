@@ -2,14 +2,15 @@ class LeaguesController < ApplicationController
   before_action :require_admin, except: [:show]
 
   def show
-    @league = League.find(params[:id])
-    @owned_teams = Team
-      .joins(:ownerships)
-      .where("ownerships.league_id = ?", @league.id)
-      .order(name: :asc)
-    @teams = @owned_teams + (Team.all - @owned_teams)
+    @league = League.find(params[:id]).decorate
+    @teams = Team.ordered_teams_by_league(@league.id)
+
+    # this will eventually live on the league model or in settings
     @range = [*0..13]
-    @accomplishments = Accomplishment.all
+
+    # TODO: make accomplishments after a certain Date
+    # also filter on the view based on when the ownership started
+    @accomplishments = Accomplishment.filter_by_league(@league)
   end
 
   def new

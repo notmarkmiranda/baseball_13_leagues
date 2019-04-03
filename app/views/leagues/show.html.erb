@@ -1,11 +1,19 @@
-<h1><%= @league.name %></h1>
+<div class="row">
+  <div class="col-lg-12">
+    <h5 class="league-name"><%= @league.name %></h5>
+    <small class="start-end-dates">League Dates: March 28, 2019</small>
+    <small class="start-end-dates"> - In Progress</small>
+    <small class="active-status"> | <%= @league.active_status %> | </small>
+    <small class="number-of-members"><%= @league.memberships_translator %></small>
+  </div>
+</div>
 
-<table class="table table-responsive-md table-striped table-bordered league-table">
+<table class="table table-responsive-lg table-striped table-bordered league-table">
   <thead>
     <tr>
       <th scope="col">Team</th>
       <% @range.each do |n| %>
-        <th class="accomplishment"><%= n %></th>
+        <th class="accomplishment text-center"><%= n %></th>
       <% end %>
     </tr>
   </thead>
@@ -16,7 +24,7 @@
           <span class="team-name">
             <%= team.name %>
           </span>
-          <% if @owned_teams.include?(team) %>
+          <% if Team.owned_teams_by_league(@league.id).include?(team) %>
             <span class="ownership-text">
               <%= team.owner_email %>
             </span>
@@ -25,15 +33,16 @@
               <%= link_to 'Assign Team', new_league_ownership_path(@league, team_id: team.id), class: 'assign-team-link' %>
             </div>
           <% end %>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <%= "#{team.completion_percentage_by_league(@league)}%" %>;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"><%= "#{team.completion_percentage_by_league(@league)}%" %></div>
+          </div>
         </td>
         <% @range.each do |n| %>
-          <td>
+          <td class="text-center">
             <% acc = @accomplishments.find_by(team_id: team.id, number: n) %>
             <% if acc %>
-              <%= acc.date %>
+              <span data-toggle="tooltip" data-placement="top" title="<%= acc.short_date %>"><%= fa_icon "check" %></span>
             <% end %>
-            <!--// this is where accomplishments will go //-->
-            &nbsp;
           </td>
         <% end %>
       </tr>
