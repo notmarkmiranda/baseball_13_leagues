@@ -6,13 +6,39 @@ class Team < ApplicationRecord
 
   default_scope { order(name: :asc) }
 
-  def owner_email
-    owner_user.email
+  def accomplishment_count_by_league(league)
+    accomplishments = Accomplishment.where(
+      "date >= :league_start_date AND team_id = :team_id AND number >= :bottom AND number <= :top",
+      league_start_date: league.start_date,
+      team_id: id,
+      bottom: 0,
+      top: 14
+    )
+    accomplishments.uniq { |acc| acc.number }.count
+  end
+
+
+  def owner_email_by_league(league)
+    owner_user(league).email
+  end
+
+  def self.owned_teams_by_league(league_id)
+    joins(:ownerships)
+      .where("ownerships.league_id = :league_id", league_id: league_id)
+      .order(name: :asc)
+  end
+
+  def self.ordered_teams_by_league(league_id)
+    owned_teams_by_league(league_id) + unowned_teams_by_league(league_id)
+  end
+
+  def self.unowned_teams_by_league(league_id)
+    Team.all - owned_teams_by_league(league_id)
   end
 
   private
 
-  def owner_user
-    ownerships.first.user
+  def owner_user(league)
+    ownerships.find_by(league: league).user
   end
 end

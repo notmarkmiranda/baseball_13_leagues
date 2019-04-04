@@ -1,3 +1,26 @@
 h5.league-name {
   color: $USAFA_BLUE;
+  text-transform: uppercase;
+  margin-bottom: -4px;
+}
+
+span.accomplishment-date {
+  font-size: 0.8em;
+}
+
+small.start-end-dates {
+  color: $NEON_CARROT;
+  text-transform: uppercase;
+}
+
+.active-status {
+  color: $TIMBERWOLF;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.number-of-members {
+  color: $DARK_SLATE_GRAY;
+  text-transform: uppercase;
+  font-size: 12px;
 }

@@ -5,10 +5,7 @@ describe CreateAllTeams do
     let(:team_double) { instance_double('Team', name: 'team_name') }
     subject { described_class.lets_go! }
 
-    before do
-      allow(Team).to receive(:find_or_create_by).and_return(team_double)
-      allow($stdout).to receive(:puts)
-    end
+    before { allow(Team).to receive(:find_or_create_by).and_return(team_double) }
 
     it 'should call #find_or_create_by 30 times' do
       subject
