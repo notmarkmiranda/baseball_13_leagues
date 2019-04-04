@@ -27,7 +27,7 @@
               </span>
               <% if Team.owned_teams_by_league(@league.id).include?(team) %>
                 <span class="ownership-text">
-                  <%= team.owner_email %>
+                  <%= team.owner_email_by_league(@league) %>
                 </span>
               <% elsif policy(@league).admin? %>
                 <div>
@@ -42,7 +42,7 @@
             </td>
             <% @range.each do |n| %>
               <td class="text-center">
-                <% acc = @accomplishments.find_by(team_id: team.id, number: n) %>
+                <% acc = @accomplishments.find_by(team_id: team.id, number: n)&.decorate %>
                 <% if acc %>
                   <span data-toggle="tooltip" data-placement="top" title="<%= acc.short_date %>"><%= fa_icon "check" %></span>
                 <% end %>

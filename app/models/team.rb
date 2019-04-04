@@ -13,13 +13,13 @@ class Team < ApplicationRecord
       team_id: id,
       bottom: 0,
       top: 14
-    ).uniq { |acc| acc.number }
-    accomplishments.count
+    )
+    accomplishments.uniq { |acc| acc.number }.count
   end
 
 
-  def owner_email
-    owner_user.email
+  def owner_email_by_league(league)
+    owner_user(league).email
   end
 
   def self.owned_teams_by_league(league_id)
@@ -38,7 +38,7 @@ class Team < ApplicationRecord
 
   private
 
-  def owner_user
-    ownerships.first.user
+  def owner_user(league)
+    ownerships.find_by(league: league).user
   end
 end

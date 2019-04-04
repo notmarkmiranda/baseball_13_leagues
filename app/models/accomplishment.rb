@@ -11,8 +11,4 @@ class Accomplishment < ApplicationRecord
       where("date>= :start_date AND date <= :end_date AND number >= :bottom AND number <= :top", start_date: league.start_date, end_date: league.end_date, bottom: 0, top: 14)
     end
   end
-
-  def short_date
-    date.strftime("%m/%-e/%y")
-  end
 end
