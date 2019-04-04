@@ -10,7 +10,7 @@ class OwnershipCreator
   end
 
   def save
-    ownership = league.ownerships.new(only_ownership_params.merge({ user_id: user.id }))
+    ownership = league.ownerships.find_or_initialize_by(only_ownership_params.merge({ user_id: user.id }))
     create_membership if ownership.valid?
     return ownership if ownership.save
 
@@ -20,7 +20,9 @@ class OwnershipCreator
   private
 
   def create_membership
-    league.memberships.create(user: user, role: 0)
+    membership = league.memberships.find_or_initialize_by(user: user)
+    membership.role = 0 if membership.new_record?
+    membership.save
   end
 
   def create_user
