@@ -3,7 +3,7 @@ class LeaguesController < ApplicationController
 
   def show
     @league = League.find(params[:id]).decorate
-    @teams = Team.ordered_teams_by_league(@league.id)
+    @teams = TeamDecorator.decorate_collection(Team.ordered_teams_by_league(@league.id))
 
     # this will eventually live on the league model or in settings
     @range = [*0..13]

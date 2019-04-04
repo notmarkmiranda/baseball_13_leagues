@@ -17,9 +17,6 @@ class Team < ApplicationRecord
     accomplishments.count
   end
 
-  def completion_percentage_by_league(league)
-    (accomplishment_count_by_league(league) / 14.to_f * 100).floor
-  end
 
   def owner_email
     owner_user.email
