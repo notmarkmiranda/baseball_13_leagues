@@ -8,7 +8,7 @@ class OwnershipsController < ApplicationController
   end
 
   def create
-    @ownership = OwnershipCreator.new(ownership_params, params[:league_id])
+    @ownership = OwnershipCreator.new(ownership_params, params[:league_token])
     if @ownership.save
       redirect_to league
     else
@@ -27,6 +27,6 @@ class OwnershipsController < ApplicationController
   end
 
   def league
-    @league ||= League.find(params[:league_id])
+    @league ||= League.find_by_token(params[:league_token])
   end
 end

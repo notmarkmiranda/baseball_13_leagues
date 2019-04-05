@@ -1,11 +1,11 @@
 class OwnershipCreator
-  attr_reader :league_id
+  attr_reader :league_token
   attr_reader :params
   attr_reader :user
 
-  def initialize(params, league_id)
+  def initialize(params, league_token)
     @params = params
-    @league_id = league_id
+    @league_token = league_token
     @user = create_user
   end
 
@@ -33,7 +33,7 @@ class OwnershipCreator
   end
 
   def league
-    @league ||= League.find(league_id)
+    @league ||= League.find_by_token(league_token)
   end
 
   def only_ownership_params

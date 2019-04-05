@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
 
-  resources :leagues do
+  resources :leagues, param: :token do
     resources :ownerships
   end
 

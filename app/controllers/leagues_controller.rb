@@ -2,7 +2,7 @@ class LeaguesController < ApplicationController
   before_action :require_admin, except: [:show]
 
   def show
-    @league = League.find(params[:id]).decorate
+    @league = League.find_by_token(params[:token]).decorate
     @teams = TeamDecorator.decorate_collection(Team.ordered_teams_by_league(@league.id))
     @range = [*0..13]
     @accomplishments = Accomplishment.filter_by_league(@league)

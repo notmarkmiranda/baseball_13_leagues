@@ -1,4 +1,6 @@
 class League < ApplicationRecord
+  has_secure_token
+
   belongs_to :user
   has_many :memberships
   has_many :ownerships
@@ -10,6 +12,10 @@ class League < ApplicationRecord
 
   after_create :create_adminship
 
+  def to_param
+    token
+  end
+  
   private
 
   def create_adminship
