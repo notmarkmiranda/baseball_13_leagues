@@ -28,6 +28,8 @@ class OwnershipCreator
   def create_user
     user = User.find_or_initialize_by(only_user_params)
     set_password(user) if user.new_record?
+    # TODO: remove when you set up sendgrid
+    user.skip_confirmation!
     user.save!
     user
   end
