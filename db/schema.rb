@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_05_023459) do
+ActiveRecord::Schema.define(version: 2019_04_05_043222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -73,6 +73,10 @@ ActiveRecord::Schema.define(version: 2019_04_05_023459) do
     t.index ["league_id"], name: "index_ownerships_on_league_id"
     t.index ["team_id"], name: "index_ownerships_on_team_id"
     t.index ["user_id"], name: "index_ownerships_on_user_id"
+  end
+
+  create_table "task_records", id: false, force: :cascade do |t|
+    t.string "version", null: false
   end
 
   create_table "teams", force: :cascade do |t|
