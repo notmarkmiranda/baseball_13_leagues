@@ -21,6 +21,8 @@ deploy:
   api_key:
     secure: "nqVDwmPviG7kVz8r3VCpStQT1otOPD7Bx5Ldxj+ZSkeKxrZ6gz7PqTc+ZpwMBCdoQIPh3KBYbjXNKp9NWHhTCodP5QhVcndSF7zf3rnRN14A6cLHDwSXTVeut0m89DYpIYmchZWi+OpCPJvs4W/YWoudfXIo0jV8v0WloPYuWOrthv8ro7bAGN/8gvGWMwOUsftLo3T6Hmtb6Yc5lmnPCC1xd52ZOL/6PwMuCAZ3WGHpgfZR8s/w8sBrAYvvbCeTrC7UUoeEDw0Sni3+kipgSP3KKdN52geQWXEdX+ppEjwJVjMgQNzYWUQPQyRzuIARJj0Ri54zUHX5y351vnkVCAPSyCbR6QDMfGSTefJfiBt88vYSwCro7n/3cESd/Z4KburEPXNTiwBFzlbnLbW2l2TtMvtN+m4v54BBlLNk1te7lzAAcHu3a1Lvyo3ecpPykf6ns8ZEhC1KvtFrw1/nukliSv5jqbv0Mfi1k2d7NE85+GeuHodrHdIhrUkmndG0aFX+xa5vLsC2446O042y8cHp2NtdHVBvxDMqoHXUQqq547YD2VX8REvo3aikDZH4npWszLtYKj1+0HmRuks1CtfAarMcSWeQ+Ees0+2Zi43vqz2RITJVsFtrItOeyFg6/l/3SZQRYxTlADK/lSgjDMDAjYz6JVvfl0MNKgQoJhk="
   app: baseball13
-  run: rake db:migrate
+  run:
+    - rake db:migrate
+    - rake after_party:run
   on:
     repo: notmarkmiranda/baseball_13_leagues

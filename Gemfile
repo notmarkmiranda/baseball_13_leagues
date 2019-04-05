@@ -17,6 +17,7 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
 gem 'draper'
+gem 'after_party'
 
 group :development, :test do
   gem 'factory_bot_rails'
