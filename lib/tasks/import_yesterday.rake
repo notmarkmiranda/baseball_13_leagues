@@ -3,7 +3,7 @@ namespace :import_yesterday do
   task :all_games, [:year, :month, :day] => :environment do |task, args|
     all_args = [args[:year], args[:month], args[:day]]
     today = all_args.include?(nil) ?
-            Date.today :
+            Date.yesterday :
             Date.new(args[:year].to_i, args[:month].to_i, args[:day].to_i)
 
     date = {
