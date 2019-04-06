@@ -23,9 +23,11 @@ class Team < ApplicationRecord
   end
 
   def self.owned_teams_by_league(league_id)
+    league = League.find(league_id)
+
     joins(:ownerships)
       .where("ownerships.league_id = :league_id", league_id: league_id)
-      .sort_by { |team| team.accomplishment_count_by_league(League.find(league_id)) }
+      .sort_by { |team| team.accomplishment_count_by_league(league) }
       .reverse
   end
 
