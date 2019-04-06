@@ -57,7 +57,7 @@ describe Team, type: :model do
       end
 
       describe 'self#ordered_teams_by_league' do
-        subject { described_class.ordered_teams_by_league(league) }
+        subject { described_class.ordered_teams_by_league(league.id) }
 
         it 'returns the teams in order' do
           results = subject
@@ -68,7 +68,7 @@ describe Team, type: :model do
       end
 
       describe 'self#unowned_teams_by_league' do
-        subject { described_class.unowned_teams_by_league(league) }
+        subject { described_class.unowned_teams_by_league(league.id) }
 
         it 'should return unowned teams in the league' do
           expect(subject).to include(unowned_team)

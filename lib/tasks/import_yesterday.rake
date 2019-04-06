@@ -12,13 +12,7 @@ namespace :import_yesterday do
       day: format_number(today.day)
     }
 
-    master_scoreboard = BaseballService.go!(
-      year: date[:year],
-      month: date[:month],
-      day: date[:day]
-    )
-
-    ImportDay.lets_go!(master_scoreboard)
+    ImportDay.lets_go!(date)
   end
 end
 

@@ -1,8 +1,9 @@
 class ImportDay
   attr_reader :raw_json
 
-  def initialize(json)
+  def initialize(json, date)
     @raw_json = json
+    @date = date || Date.today
   end
 
   def import!
@@ -13,8 +14,10 @@ class ImportDay
     end
   end
 
-  def self.lets_go!(json)
-    new(json).import!
+  def self.lets_go!(date = nil)
+    date = date || Date.today
+    json = BaseballService.go!(date)
+    new(json, date).import!
   end
 
   private
