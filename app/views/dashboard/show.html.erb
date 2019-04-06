@@ -9,7 +9,10 @@
           <% end %>
         </div>
       </div>
-      <li class="list-group list-group-flush">
+      <ul class="list-group list-group-flush">
+        <% if @leagues.empty? %>
+          <li class="list-group-item">You have no leagues</li>
+        <% end %>
         <% @leagues.each do |league| %>
           <%= link_to league_path(league), class: 'list-group-item list-group-item-action' do %>
             <div class="d-flex w-100 justify-content-between">
@@ -23,7 +26,7 @@
             <% end %>
           <% end %>
         <% end %>
-      </li>
+      </ul>
     </div>
   </div>
 </div>
