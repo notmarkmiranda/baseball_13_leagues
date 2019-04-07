@@ -1,6 +1,7 @@
 class Accomplishment < ApplicationRecord
   belongs_to :team
   belongs_to :game
+  has_many :winners
 
   default_scope { order(:date) }
 

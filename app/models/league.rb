@@ -13,12 +13,30 @@ class League < ApplicationRecord
 
   after_create :create_adminship
 
-  def end_today
-    update(active: false, end_date: Date.today)
+  def confirmed_winners
+    winners.where(confirmed: true)
+  end
+
+  def deactivate_only!
+    update(active: false)
+  end
+
+  def end_today!
+    update(end_date: Date.today) if end_date.nil?
+  end
+
+  def finalize!
+    deactivate_only!
+    end_today! if end_date.nil?
+    winners.first.confirm!
   end
 
   def to_param
     token
+  end
+
+  def winners_count
+    winners.count
   end
 
   private

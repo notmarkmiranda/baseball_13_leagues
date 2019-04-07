@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_004105) do
+ActiveRecord::Schema.define(version: 2019_04_07_154444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -113,6 +113,10 @@ ActiveRecord::Schema.define(version: 2019_04_07_004105) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "confirmed", default: false
+    t.bigint "accomplishment_id"
+    t.integer "tiebreak"
+    t.index ["accomplishment_id"], name: "index_winners_on_accomplishment_id"
     t.index ["league_id"], name: "index_winners_on_league_id"
     t.index ["user_id"], name: "index_winners_on_user_id"
   end
@@ -125,6 +129,7 @@ ActiveRecord::Schema.define(version: 2019_04_07_004105) do
   add_foreign_key "ownerships", "leagues"
   add_foreign_key "ownerships", "teams"
   add_foreign_key "ownerships", "users"
+  add_foreign_key "winners", "accomplishments"
   add_foreign_key "winners", "leagues"
   add_foreign_key "winners", "users"
 end
