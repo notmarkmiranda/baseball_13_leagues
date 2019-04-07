@@ -39,6 +39,12 @@ class League < ApplicationRecord
     winners.count
   end
 
+  def winning_teams
+    winners.map do |winner|
+      Ownership.find_by(league: winner.league, user: winner.user).team
+    end
+  end
+
   private
 
   def create_adminship

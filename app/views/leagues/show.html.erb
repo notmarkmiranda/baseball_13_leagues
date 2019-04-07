@@ -18,12 +18,12 @@
 
       <tbody>
         <% @teams.each do |team| %>
-          <tr>
+          <tr class="<%= @league.winning_teams.include?(team) ? 'winner' : 'not-winner' %>">
             <td>
               <span class="team-name">
                 <%= team.name %>
               </span>
-              <% if Team.owned_teams_by_league(@league.id).include?(team) %>
+              <% if Team.owned_teams_by_league(@league).include?(team) %>
                 <span class="ownership-text">
                   <%= team.owner_email_by_league(@league) %>
                 </span>

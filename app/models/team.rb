@@ -22,21 +22,22 @@ class Team < ApplicationRecord
     owner_user(league).email
   end
 
-  def self.owned_teams_by_league(league_id)
-    league = League.find(league_id)
+  def self.owned_teams_by_league(league)
+    league = League.find(league.id)
 
     joins(:ownerships)
-      .where("ownerships.league_id = :league_id", league_id: league_id)
+      .where("ownerships.league_id = :league_id", league_id: league.id)
       .sort_by { |team| team.accomplishment_count_by_league(league) }
       .reverse
   end
 
-  def self.ordered_teams_by_league(league_id)
-    owned_teams_by_league(league_id) + unowned_teams_by_league(league_id)
+  def self.ordered_teams_by_league(league)
+    winning_teams = league.winning_teams
+    winning_teams + (owned_teams_by_league(league) - winning_teams) + unowned_teams_by_league(league)
   end
 
-  def self.unowned_teams_by_league(league_id)
-    Team.all - owned_teams_by_league(league_id)
+  def self.unowned_teams_by_league(league)
+    Team.all - owned_teams_by_league(league)
   end
 
   private

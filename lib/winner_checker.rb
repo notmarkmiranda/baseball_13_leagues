@@ -4,7 +4,7 @@ class WinnerChecker
 
   def initialize(league)
     @league = league
-    @owned_teams = Team.owned_teams_by_league(league.id)
+    @owned_teams = Team.owned_teams_by_league(league)
   end
 
   def check!
