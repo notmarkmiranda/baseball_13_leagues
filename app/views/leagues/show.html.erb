@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-lg-12">
     <h5 class="league-name"><%= @league.name %></h5>
-    <small class="start-end-dates">League Dates: <%= @league.full_start_date %></small>
-    <small class="start-end-dates"> - In Progress</small>
+    <small class="start-end-dates">League Dates: <%= @league.full_date('start_date') %></small>
+    <small class="start-end-dates"><%= @league.in_progress_text %></small>
     <small class="active-status"> | <%= @league.active_status %> | </small>
     <small class="number-of-members"><%= @league.memberships_translator %></small>
 
