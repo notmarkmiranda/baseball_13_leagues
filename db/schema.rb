@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_05_043222) do
+ActiveRecord::Schema.define(version: 2019_04_07_154444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -107,6 +107,20 @@ ActiveRecord::Schema.define(version: 2019_04_05_043222) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "winners", force: :cascade do |t|
+    t.bigint "league_id"
+    t.bigint "user_id"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "confirmed", default: false
+    t.bigint "accomplishment_id"
+    t.integer "tiebreak"
+    t.index ["accomplishment_id"], name: "index_winners_on_accomplishment_id"
+    t.index ["league_id"], name: "index_winners_on_league_id"
+    t.index ["user_id"], name: "index_winners_on_user_id"
+  end
+
   add_foreign_key "accomplishments", "games"
   add_foreign_key "accomplishments", "teams"
   add_foreign_key "leagues", "users"
@@ -115,4 +129,7 @@ ActiveRecord::Schema.define(version: 2019_04_05_043222) do
   add_foreign_key "ownerships", "leagues"
   add_foreign_key "ownerships", "teams"
   add_foreign_key "ownerships", "users"
+  add_foreign_key "winners", "accomplishments"
+  add_foreign_key "winners", "leagues"
+  add_foreign_key "winners", "users"
 end

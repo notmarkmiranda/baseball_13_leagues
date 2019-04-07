@@ -3,7 +3,7 @@ class LeaguesController < ApplicationController
 
   def show
     @league = League.find_by_token(params[:token]).decorate
-    @teams = TeamDecorator.decorate_collection(Team.ordered_teams_by_league(@league.id))
+    @teams = TeamDecorator.decorate_collection(Team.ordered_teams_by_league(@league))
     @range = [*0..13]
     @accomplishments = Accomplishment.filter_by_league(@league)
   end

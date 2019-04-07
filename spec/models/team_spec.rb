@@ -48,7 +48,7 @@ describe Team, type: :model do
       let!(:owned_team) { create(:ownership, league: league).team }
 
       describe 'self#owned_teams_by_league' do
-        subject { described_class.owned_teams_by_league(league.id) }
+        subject { described_class.owned_teams_by_league(league) }
 
         it 'returns owned teams in the league' do
           expect(subject).to include(owned_team)
@@ -57,7 +57,7 @@ describe Team, type: :model do
       end
 
       describe 'self#ordered_teams_by_league' do
-        subject { described_class.ordered_teams_by_league(league.id) }
+        subject { described_class.ordered_teams_by_league(league) }
 
         it 'returns the teams in order' do
           results = subject
@@ -68,7 +68,7 @@ describe Team, type: :model do
       end
 
       describe 'self#unowned_teams_by_league' do
-        subject { described_class.unowned_teams_by_league(league.id) }
+        subject { described_class.unowned_teams_by_league(league) }
 
         it 'should return unowned teams in the league' do
           expect(subject).to include(unowned_team)

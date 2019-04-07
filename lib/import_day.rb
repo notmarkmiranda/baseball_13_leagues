@@ -15,7 +15,7 @@ class ImportDay
   end
 
   def self.lets_go!(date = nil)
-    date = date || Date.today
+    date = date || make_date_hash
     json = BaseballService.go!(date)
     new(json, date).import!
   end
@@ -29,6 +29,20 @@ class ImportDay
 
   def games
     parsed_json[:data][:games][:game]
+  end
+
+  def make_date_hash
+    today = Date.today
+    {
+      year: today.year,
+      month: format_number(today.month),
+      day: format_number(today.day)
+    }
+  end
+
+  def format_number(num)
+    return "%02d" % num if num < 10
+    num
   end
 
   def parsed_json

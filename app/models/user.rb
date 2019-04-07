@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :leagues
   has_many :memberships
+  has_many :winners
 
   devise :database_authenticatable,
          :recoverable,

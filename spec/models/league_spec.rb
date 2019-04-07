@@ -5,6 +5,7 @@ describe League, type: :model do
     it { should belong_to :user }
     it { should have_many :memberships }
     it { should have_many :ownerships }
+    it { should have_many :winners }
   end
 
   describe 'validations' do
