@@ -4,6 +4,7 @@ class League < ApplicationRecord
   belongs_to :user
   has_many :memberships
   has_many :ownerships
+  has_many :winners
 
   delegate :count, to: :memberships, prefix: true
 
@@ -12,10 +13,14 @@ class League < ApplicationRecord
 
   after_create :create_adminship
 
+  def end_today
+    update(active: false, end_date: Date.today)
+  end
+
   def to_param
     token
   end
-  
+
   private
 
   def create_adminship

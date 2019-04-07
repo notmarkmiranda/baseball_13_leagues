@@ -12,7 +12,7 @@ class Team < ApplicationRecord
       league_start_date: league.start_date,
       team_id: id,
       bottom: 0,
-      top: 14
+      top: 13
     )
     accomplishments.uniq { |acc| acc.number }.count
   end

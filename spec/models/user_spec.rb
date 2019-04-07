@@ -5,6 +5,7 @@ describe User, type: :model do
   describe 'relationships' do
     it { should have_many :leagues }
     it { should have_many :memberships }
+    it { should have_many :winners }
   end
 
   describe 'validations'
