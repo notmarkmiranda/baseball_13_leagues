@@ -7,12 +7,21 @@ describe ImportDay do
   subject { described_class.lets_go!(date) }
 
   describe 'with a date object' do
-    before { allow(ImportGame).to receive(:import!) }
+    let!(:league) { create(:league) }
+
+    before do
+      allow(ImportGame).to receive(:import!)
+      allow(Event).to receive(:create!)
+      allow(WinnerChecker).to receive(:check_for_winner)
+    end
+
     it 'should call the CreateGame class for games that are finished' do
       expect(BaseballService).to receive(:go!).with(date).and_return(json_file)
       subject
 
       expect(ImportGame).to have_received(:import!).exactly(9).times
+      expect(Event).to have_received(:create!).with(event_type: 'ImportDay').once
+      expect(WinnerChecker).to have_received(:check_for_winner).with(league).once
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_154444) do
+ActiveRecord::Schema.define(version: 2019_04_07_200815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -26,6 +26,12 @@ ActiveRecord::Schema.define(version: 2019_04_07_154444) do
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_accomplishments_on_game_id"
     t.index ["team_id"], name: "index_accomplishments_on_team_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "event_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|

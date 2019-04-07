@@ -13,6 +13,8 @@ class League < ApplicationRecord
 
   after_create :create_adminship
 
+  scope :active, -> { where(active: true) }
+
   def confirmed_winners
     winners.where(confirmed: true)
   end

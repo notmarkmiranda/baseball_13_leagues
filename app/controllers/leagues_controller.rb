@@ -6,6 +6,7 @@ class LeaguesController < ApplicationController
     @teams = TeamDecorator.decorate_collection(Team.ordered_teams_by_league(@league))
     @range = [*0..13]
     @accomplishments = Accomplishment.filter_by_league(@league)
+    @event = Event.find_by(event_type: 'ImportGame')&.decorate
   end
 
   def new
