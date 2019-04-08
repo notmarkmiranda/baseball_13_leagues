@@ -14,6 +14,10 @@
             <%= f.label :start_date, 'Start Date', class: 'form-labels' %>
             <%= f.date_field :start_date, class: 'form-control' %>
           </div>
+          <div class="form-group form-check">
+            <%= f.check_box :async_starts, class: 'form-check-input' %>
+            <%= f.label :async_starts, 'Players do not get scores before their start',  class: 'form-check-label form-labels' %>
+          </div>
           <div class="action">
             <%= f.submit 'Vamonos!', class: 'btn btn-outline-secondary btn-block' %>
           </div>
