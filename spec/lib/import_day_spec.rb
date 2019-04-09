@@ -20,7 +20,7 @@ describe ImportDay do
       subject
 
       expect(ImportGame).to have_received(:import!).exactly(9).times
-      expect(Event).to have_received(:create!).with(event_type: 'ImportDay').once
+      expect(Event).to have_received(:create!).with(event_type: 'ImportGame').once
       expect(WinnerChecker).to have_received(:check_for_winner).with(league).once
     end
   end
