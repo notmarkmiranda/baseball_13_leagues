@@ -45,9 +45,9 @@
                 </div>
               </div>
             </td>
-            <% @range.each do |n| %>
+            <% @range.each do |number| %>
               <td class="text-center">
-                <% acc = @accomplishments.find_by(team_id: team.id, number: n)&.decorate %>
+                <% acc = @accomplishments.by_team_and_number_and_is_eligible?(team, number, @league) %>
                 <% if acc %>
                   <span data-toggle="tooltip" data-placement="top" title="<%= acc.short_date %>"><%= fa_icon "check" %></span>
                 <% end %>

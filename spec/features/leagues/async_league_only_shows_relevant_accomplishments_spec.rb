@@ -9,7 +9,8 @@ describe 'Async league only shows relevant accomplishments' do
   let(:team) { ownership.team }
 
   before do
-    @acc = create(:accomplishment, team: team, number: 1, date: league_start)
+    acc = create(:accomplishment, team: team, number: 1, date: league_start)
+    Accomplishment.where.not(id: acc.id).destroy_all
   end
 
   it 'should not show the accomplishment on the page' do
