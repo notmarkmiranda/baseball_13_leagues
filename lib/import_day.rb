@@ -18,7 +18,7 @@ class ImportDay
     date = date || make_date_hash
     json = BaseballService.go!(date)
     new(json, date).import!
-    Event.create!(event_type: 'ImportDay')
+    Event.create!(event_type: 'ImportGame')
 
     League.active.each do |league|
       WinnerChecker.check_for_winner(league)
