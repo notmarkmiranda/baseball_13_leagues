@@ -18,9 +18,11 @@ gem 'jquery-rails'
 gem 'font-awesome-rails'
 gem 'draper'
 gem 'after_party'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'factory_bot_rails'
+  gem 'figaro'
   gem 'pry'
   gem 'rb-readline'
   gem 'rspec-rails', '~> 3.8'
