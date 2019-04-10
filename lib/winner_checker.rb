@@ -29,8 +29,8 @@ class WinnerChecker
       if there_is_only_one_winner?
         league_winners.find_by(tiebreak: max_runs).confirm!
         league.finalize!
-      elsif 'there are more than one winner, but not all of them are tied'
-        # drop the non-lower winners
+      elsif there_are_more_than_one_winner_but_also_a_loser?
+        tie_break_losers.each(&:destroy)
         league.end_today!
       else
         # move the end date to today so it checks from here
@@ -47,7 +47,7 @@ class WinnerChecker
   end
 
   def end_date_and_active?
-    league.end_date && league.active? && league.winners_count > 1
+    league.end_date && league.active? && league_winners.count > 1
   end
 
   def every_winner_has_an_accomplishment?
@@ -66,8 +66,20 @@ class WinnerChecker
     @max_runs = league_winners.pluck(:tiebreak).max
   end
 
+  def there_are_more_than_one_winner_but_also_a_loser?
+    tie_break_winners.many? && tie_break_losers.any?
+  end
+
   def there_is_only_one_winner?
-    league_winners.where(tiebreak: max_runs).one?
+    tie_break_winners.one?
+  end
+
+  def tie_break_losers
+    league_winners - tie_break_winners
+  end
+
+  def tie_break_winners
+    league_winners.where(tiebreak: max_runs)
   end
 
   def update_winners
