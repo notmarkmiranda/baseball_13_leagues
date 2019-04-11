@@ -23,22 +23,11 @@ class WinnerChecker
   def check_tiebreak
     update_winners
 
-    # if each winner has an accomplishment
-    if every_winner_has_an_accomplishment?
-      # if only one winner has the max runs
-      if there_is_only_one_winner?
-        league_winners.find_by(tiebreak: max_runs).confirm!
-        league.finalize!
-      elsif there_are_more_than_one_winner_but_also_a_loser?
-        tie_break_losers.each(&:destroy)
-        league.end_today!
-      else
-        # move the end date to today so it checks from here
-        league.end_today!
-      end
-      # figure out if one accomplishment is greater than the other and confirm that winner
-      # otherwise (there is a tie) move the league end date forward
-    end
+    return unless every_winner_has_an_accomplishment?
+    return finalize_single_winner! if there_is_only_one_winner?
+    return remove_losers_on_multiple_ties! if there_are_more_than_one_winner_but_also_a_loser?
+
+    league.end_today!
   end
 
   def create_winner(league, team)
@@ -54,6 +43,11 @@ class WinnerChecker
     league_winners.count == league_winners.map(&:accomplishment).compact.count
   end
 
+  def finalize_single_winner!
+    league_winners.find_by(tiebreak: max_runs).confirm!
+    league.finalize!
+  end
+
   def first_accomplishment_after_league_finish(team)
     team.accomplishments.where('accomplishments.date > ?', league.end_date).first
   end
@@ -64,6 +58,11 @@ class WinnerChecker
 
   def max_runs
     @max_runs = league_winners.pluck(:tiebreak).max
+  end
+
+  def remove_losers_on_multiple_ties!
+    tie_break_losers.each(&:destroy)
+    league.end_today!
   end
 
   def there_are_more_than_one_winner_but_also_a_loser?
