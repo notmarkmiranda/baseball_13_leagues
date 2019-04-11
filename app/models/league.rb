@@ -24,7 +24,7 @@ class League < ApplicationRecord
   end
 
   def end_today!
-    update(end_date: Date.today) if end_date.nil?
+    update(end_date: Date.today)
   end
 
   def finalize!

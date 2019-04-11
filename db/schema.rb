@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_200815) do
+ActiveRecord::Schema.define(version: 2019_04_08_032311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_04_07_200815) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
+    t.boolean "async_starts", default: false
     t.index ["token"], name: "index_leagues_on_token", unique: true
     t.index ["user_id"], name: "index_leagues_on_user_id"
   end
@@ -76,6 +77,7 @@ ActiveRecord::Schema.define(version: 2019_04_07_200815) do
     t.boolean "paid", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "start_date"
     t.index ["league_id"], name: "index_ownerships_on_league_id"
     t.index ["team_id"], name: "index_ownerships_on_team_id"
     t.index ["user_id"], name: "index_ownerships_on_user_id"

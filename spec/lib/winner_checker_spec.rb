@@ -47,7 +47,7 @@ describe WinnerChecker do
     end
   end
 
-  describe 'when there are 2 winners' do
+  describe 'when there are multiple winners' do
     let(:other_ownership) { create(:ownership, league: league) }
     let(:other_team) { other_ownership.team }
     let(:other_owner) { other_ownership.user }
@@ -114,5 +114,72 @@ describe WinnerChecker do
       end
     end
 
+    describe 'if there are three winners' do
+      let(:third_ownership) { create(:ownership, league: league) }
+      let(:third_team) { third_ownership.team }
+      let(:third_owner) { third_ownership.user }
+      let(:all_three_owners) { [owner, other_owner, third_owner] }
+      let(:all_three_teams) { [team, other_team, third_team] }
+
+      before do
+        league.end_today!
+        all_three_owners.each do |owner|
+          league.winners.create(user: owner)
+        end
+      end
+
+      describe 'and they are all tied' do
+        before do
+          all_three_teams.each do |team|
+            create(:accomplishment, number: 15, team: team, date: Date.tomorrow)
+          end
+        end
+
+        it 'should move the date forward and not deactivate the league' do
+          travel_to Date.tomorrow do
+            expect {
+              subject
+            }.to change { league.end_date }
+            expect(league.winners_count).to eq(3)
+            expect(league.confirmed_winners).to be_empty
+            expect(league.active).to be(true)
+          end
+        end
+      end
+
+      describe 'two are tied and the third has a higher accomplishment' do
+        before do
+          [team, other_team].each do |team|
+            create(:accomplishment, number: 15, team: team, date: Date.tomorrow)
+          end
+          create(:accomplishment, number: 16, team: third_team, date: Date.tomorrow)
+        end
+
+        it 'should end the league and declare a winner' do
+          expect {
+            subject
+          }.to change { league.active }.to false
+          expect(league.confirmed_winners).not_to be_empty
+        end
+      end
+
+      describe 'two are tied and the third has a lower accomplishment' do
+        before do
+          [team, other_team].each do |team|
+            create(:accomplishment, number: 15, team: team, date: Date.tomorrow)
+          end
+          create(:accomplishment, number: 14, team: third_team, date: Date.tomorrow)
+        end
+
+        it 'should remove a winner and move the league end_date forward' do
+          travel_to Date.tomorrow do
+            expect {
+              subject
+            }.to change { league.end_date }
+            .and change { league.winners.count }.by(-1)
+          end
+        end
+      end
+    end
   end
 end
