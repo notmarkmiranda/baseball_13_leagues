@@ -1,0 +1,18 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "env": {
+  },
+  "formation": {
+  },
+  "name": "baseball_13_leagues",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
