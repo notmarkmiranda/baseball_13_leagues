@@ -10,3 +10,6 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 NEW_RELIC_LICENSE_KEY: cf47f362416f860c114aa811f66ce8666d2d029e
+DATABASE_URL: 'postgres://root:mysecretpassword@db:5432/baseball_13_leagues?encoding=utf8&pool=5&timeout=5000'
+RAILS_ENV: 'development'
+PORT: 3000
