@@ -37,7 +37,36 @@ class LeagueDecorator < ApplicationDecorator
   def team_owner(team)
     elements = []
     elements << h.content_tag(:span, team.owner_email_by_league(object), class: 'ownership-text')
-    elements << h.content_tag(:div, paid_status(team), class: 'paid-text mb-2')
+    elements << h.content_tag(:div, nested_elements_for_team_ownership(team), class: 'paid-section')
     elements.join.html_safe
+  end
+
+  def nested_elements_for_team_ownership(team)
+    elements = []
+    elements << mark_as_button(team)
+    # elements << h.content_tag(:span, h.fa_icon('times-circle'))
+    elements << h.content_tag(:div, paid_status(team), class: 'paid-text ml-2')
+    elements.join.html_safe
+  end
+
+  def mark_as_button(team)
+    return mark_as_unpaid(team) if team.is_paid_in_league?(object)
+    mark_as_paid(team)
+  end
+
+  def mark_as_paid(team)
+    h.button_to h.mark_as_paid_league_ownership_path(object, ownership(object, team)), method: :patch, class: 'mark-as-button mark-as-paid-button' do
+      h.fa_icon('check-circle')
+    end
+  end
+
+  def mark_as_unpaid(team)
+     h.button_to h.mark_as_unpaid_league_ownership_path(object, ownership(object, team)), method: :patch, class: 'mark-as-button mark-as-unpaid-button' do
+      h.fa_icon('times-circle')
+    end
+  end
+
+  def ownership(league, team)
+    Ownership.find_by(league: league, team: team)
   end
 end

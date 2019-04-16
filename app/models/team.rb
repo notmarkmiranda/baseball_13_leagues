@@ -17,6 +17,9 @@ class Team < ApplicationRecord
     accomplishments.uniq { |acc| acc.number }.count
   end
 
+  def is_paid_in_league?(league)
+    ownership_by_league(league).paid?
+  end
 
   def owner_email_by_league(league)
     owner_user(league).email
