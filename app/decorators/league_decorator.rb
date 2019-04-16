@@ -44,8 +44,7 @@ class LeagueDecorator < ApplicationDecorator
   def nested_elements_for_team_ownership(team)
     elements = []
     elements << mark_as_button(team)
-    # elements << h.content_tag(:span, h.fa_icon('times-circle'))
-    elements << h.content_tag(:div, paid_status(team), class: 'paid-text ml-2')
+    elements << h.content_tag(:div, paid_status(team), class: 'paid-text')
     elements.join.html_safe
   end
 
@@ -55,15 +54,19 @@ class LeagueDecorator < ApplicationDecorator
   end
 
   def mark_as_paid(team)
-    h.button_to h.mark_as_paid_league_ownership_path(object, ownership(object, team)), method: :patch, class: 'mark-as-button mark-as-paid-button' do
+    h.button_to h.mark_as_paid_league_ownership_path(object, ownership(object, team)), method: :patch, class: 'mark-as-button mark-as-paid-button', data: { toggle: "tooltip", placement: "top" }, title: button_tooltip_text(team) do
       h.fa_icon('check-circle')
     end
   end
 
   def mark_as_unpaid(team)
-     h.button_to h.mark_as_unpaid_league_ownership_path(object, ownership(object, team)), method: :patch, class: 'mark-as-button mark-as-unpaid-button' do
+     h.button_to h.mark_as_unpaid_league_ownership_path(object, ownership(object, team)), method: :patch, class: 'mark-as-button mark-as-unpaid-button', data: { toggle: "tooltip", placement: "top" }, title: button_tooltip_text(team) do
       h.fa_icon('times-circle')
     end
+  end
+
+  def button_tooltip_text(team)
+    ownership(object, team).paid? ? 'Mark as unpaid' : 'Mark as paid'
   end
 
   def ownership(league, team)
