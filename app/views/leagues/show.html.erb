@@ -30,15 +30,7 @@
               <span class="team-name">
                 <%= team.name %>
               </span>
-              <% if Team.owned_teams_by_league(@league).include?(team) %>
-                <span class="ownership-text">
-                  <%= team.owner_email_by_league(@league) %>
-                </span>
-              <% elsif policy(@league).admin? %>
-                <div>
-                  <%= link_to 'Assign Team', new_league_ownership_path(@league, team_id: team.id), class: 'assign-team-link' %>
-                </div>
-              <% end %>
+              <%= @league.owner_email_or_assignment_link(team) %>
               <div class="progress" style="height: 25px;">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= team.completion_percentage_by_league(@league) %>;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
                   <%= team.progress_bar_numbers(@league, @range) %>

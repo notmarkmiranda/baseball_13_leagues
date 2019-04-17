@@ -28,3 +28,26 @@ th.accomplishment {
 tr.winner {
   background-color: $DODGER_BLUE !important;
 }
+
+.paid-section {
+  display: flex;
+  align-items: center;
+}
+
+.paid-text {
+  color: $TIMBERWOLF;
+  text-transform: uppercase;
+  font-size: 0.7em;
+}
+
+.mark-as-button {
+  background: transparent;
+  border: none;
+}
+
+.mark-as-paid-button {
+  color: green;
+}
+.mark-as-unpaid-button {
+  color: red;
+}

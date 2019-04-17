@@ -17,9 +17,20 @@ class Team < ApplicationRecord
     accomplishments.uniq { |acc| acc.number }.count
   end
 
+  def is_paid_in_league?(league)
+    ownership_by_league(league).paid?
+  end
 
   def owner_email_by_league(league)
     owner_user(league).email
+  end
+
+  def ownership_by_league(league)
+    ownerships.find_by(league: league)
+  end
+
+  def ownership_status_by_league(league)
+    ownership_by_league(league).paid
   end
 
   def self.owned_teams_by_league(league)
@@ -43,6 +54,6 @@ class Team < ApplicationRecord
   private
 
   def owner_user(league)
-    ownerships.find_by(league: league).user
+    ownership_by_league(league).user
   end
 end

@@ -7,4 +7,12 @@ class Ownership < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :league_id }
   validates :team_id, uniqueness: { scope: :league_id }
+
+  def mark_as_paid!
+    update(paid: true)
+  end
+
+  def mark_as_unpaid!
+    update(paid: false)
+  end
 end
