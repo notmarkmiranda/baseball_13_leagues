@@ -42,6 +42,7 @@ class LeagueDecorator < ApplicationDecorator
   end
 
   def nested_elements_for_team_ownership(team)
+    return unless object.is_admin?(h.current_user)
     elements = []
     elements << mark_as_button(team)
     elements << h.content_tag(:div, paid_status(team), class: 'paid-text')
