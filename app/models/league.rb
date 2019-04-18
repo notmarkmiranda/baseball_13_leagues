@@ -33,6 +33,11 @@ class League < ApplicationRecord
     winners.first.confirm!
   end
 
+  def is_admin?(user=nil)
+    return false if user.nil?
+    memberships.where(role: 1).map(&:user).include?(user)
+  end
+
   def to_param
     token
   end
