@@ -22,7 +22,7 @@ class WinnerChecker
 
   def check_tiebreak
     update_winners
-
+    
     return unless every_winner_has_an_accomplishment?
     return finalize_single_winner! if there_is_only_one_winner?
     return remove_losers_on_multiple_ties! if there_are_more_than_one_winner_but_also_a_loser?

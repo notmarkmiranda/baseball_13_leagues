@@ -136,7 +136,7 @@ describe WinnerChecker do
         end
 
         it 'should move the date forward and not deactivate the league' do
-          travel_to Date.tomorrow do
+          travel_to 10.days.from_now do
             expect {
               subject
             }.to change { league.end_date }

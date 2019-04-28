@@ -1,0 +1,17 @@
+version: '2'
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: >
+      sh -c "bundle exec rails db:create db:migrate && bundle exec puma"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres@db
+  db:
+    image: postgres:10.3-alpine
