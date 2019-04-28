@@ -44,6 +44,8 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
 
+  DatabaseCleaner.allow_production = true
+  DatabaseCleaner.allow_remote_database_url = true
   config.before(:suite) do
     if config.use_transactional_fixtures?
       raise(<<-MSG)
