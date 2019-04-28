@@ -19,6 +19,8 @@ gem 'font-awesome-rails'
 gem 'draper'
 gem 'after_party'
 gem 'newrelic_rpm'
+gem 'mini_racer'
+gem 'execjs'
 
 group :development, :test do
   gem 'factory_bot_rails'
